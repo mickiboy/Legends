@@ -3,6 +3,7 @@
 #include <memory>
 
 namespace Legends {
+    using RawDisplay = void*;
     using RawSurface = void*;
 
     class App;
@@ -22,6 +23,13 @@ namespace Legends {
          */
         Surface(App& app, int width, int height);
         ~Surface();
+        
+        /**
+         * Returns a pointer to the raw display data.
+         *
+         * @return The raw display
+         */
+        RawDisplay getRawDisplay();
 
         /**
          * Returns a pointer to the raw surface data.
@@ -52,7 +60,8 @@ namespace Legends {
     public:
         SurfaceImpl(App& app, int width, int height) {}
         virtual ~SurfaceImpl() {}
-
+        
+        virtual RawDisplay getRawDisplay() = 0;
         virtual RawSurface getRawSurface() = 0;
         virtual int getWidth() const = 0;
         virtual int getHeight() const = 0;

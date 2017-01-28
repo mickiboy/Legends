@@ -4,21 +4,26 @@
 
 namespace Legends {
     Renderer::Renderer(Surface& surface) {
-        init(surface.getRawSurface(), surface.getWidth(), surface.getHeight());
+        init(surface.getRawDisplay(), surface.getRawSurface(), surface.getWidth(), surface.getHeight());
     }
 
     Renderer::Renderer(RawSurface surface, int width, int height) {
-        init(surface, width, height);
+        init(nullptr, surface, width, height);
+    }
+    
+    Renderer::Renderer(RawDisplay display, RawSurface surface, int width, int height) {
+        init(display, surface, width, height);
     }
 
     Renderer::~Renderer() {
         bgfx::shutdown();
     }
 
-    void Renderer::init(RawSurface surface, int width, int height) {
+    void Renderer::init(RawDisplay display, RawSurface surface, int width, int height) {
         bgfx::PlatformData data;
 
         memset(&data, 0, sizeof(bgfx::PlatformData));
+        data.ndt = display;
         data.nwh = surface;
         bgfx::setPlatformData(data);
 

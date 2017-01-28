@@ -18,6 +18,12 @@ set(SOURCE_FILES
 
         src/win32/SurfaceImpl_win32.h
         src/win32/SurfaceImpl_win32.cpp
+
+        src/linux/AppImpl_linux.h
+        src/linux/AppImpl_linux.cpp
+
+        src/linux/SurfaceImpl_linux.h
+        src/linux/SurfaceImpl_linux.cpp
         )
 
 if(APPLE)
