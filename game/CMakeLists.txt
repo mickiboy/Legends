@@ -6,6 +6,12 @@ set(SOURCE_FILES
 
 add_executable(Game WIN32 ${SOURCE_FILES})
 
+set(LIBRARIES Framework)
+
 if(WIN32)
-    target_link_libraries(Game Framework psapi)
+    set(LIBRARIES ${LIBRARIES} psapi)
+elseif(UNIX)
+    set(LIBRARIES ${LIBRARIES} X11 GL pthread dl)
 endif()
+
+target_link_libraries(Game ${LIBRARIES})

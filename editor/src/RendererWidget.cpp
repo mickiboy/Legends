@@ -2,12 +2,24 @@
 #include <Legends/EventManager.h>
 #include "RendererWidget.h"
 
+#if __linux__
+#include <QX11Info>
+#endif
+
 RendererWidget::RendererWidget() {
     setAttribute(Qt::WA_PaintOnScreen, true);
     setAttribute(Qt::WA_NativeWindow, true);
 
     auto handle = reinterpret_cast<Legends::RawSurface>(winId());
+
+#if __linux
+    renderer = std::make_shared<Legends::Renderer>(QX11Info::display(),
+                                                   handle,
+                                                   width(),
+                                                   height());
+#else
     renderer = std::make_shared<Legends::Renderer>(handle, width(), height());
+#endif
 }
 
 RendererWidget::~RendererWidget() {

@@ -14,7 +14,8 @@ namespace Legends {
     public:
         SurfaceImpl_win32(App& app, int width, int height);
         virtual ~SurfaceImpl_win32();
-
+        
+        RawDisplay getRawDisplay() override { return nullptr; }
         RawSurface getRawSurface() override;
         int getWidth() const override;
         int getHeight() const override;

@@ -16,7 +16,11 @@ if(MSVC)
     endif()
 endif()
 
-find_package(Qt5 REQUIRED Widgets)
+if(UNIX)
+    find_package(Qt5 REQUIRED Widgets X11Extras)
+else()
+    find_package(Qt5 REQUIRED Widgets)
+endif()
 
 set(SOURCE_FILES
         src/main.cpp
@@ -27,5 +31,13 @@ set(SOURCE_FILES
         src/RendererWidget.h
         src/RendererWidget.cpp)
 
+set(LIBRARIES Framework Qt5::Widgets)
+
+if(WIN32)
+    set(LIBRARIES ${LIBRARIES} psapi)
+elseif(UNIX)
+    set(LIBRARIES ${LIBRARIES} Qt5::X11Extras X11 GL pthread dl)
+endif()
+
 add_executable(Editor WIN32 ${SOURCE_FILES})
-target_link_libraries(Editor Framework Qt5::Widgets psapi)
+target_link_libraries(Editor ${LIBRARIES})
