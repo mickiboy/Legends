@@ -29,14 +29,13 @@ set(SOURCE_FILES
         src/MainWindow.cpp
 
         src/RendererWidget.h
-        src/RendererWidget.cpp)
+        src/RendererWidget.cpp
+        )
 
 set(LIBRARIES Framework Qt5::Widgets)
 
-if(WIN32)
-    set(LIBRARIES ${LIBRARIES} psapi)
-elseif(UNIX)
-    set(LIBRARIES ${LIBRARIES} Qt5::X11Extras X11 GL pthread dl)
+if(UNIX)
+    set(LIBRARIES ${LIBRARIES} Qt5::X11Extras)
 endif()
 
 add_executable(Editor WIN32 ${SOURCE_FILES})

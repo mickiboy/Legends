@@ -13,18 +13,20 @@ set(SOURCE_FILES
         include/Legends/Surface.h
         src/Surface.cpp
 
-        src/win32/AppImpl_win32.h
-        src/win32/AppImpl_win32.cpp
+        src/SDL/AppImpl_SDL.cpp
+        src/SDL/AppImpl_SDL.h
 
-        src/win32/SurfaceImpl_win32.h
-        src/win32/SurfaceImpl_win32.cpp
+        src/SDL/SurfaceImpl_SDL.cpp
+        src/SDL/SurfaceImpl_SDL.h)
 
-        src/linux/AppImpl_linux.h
-        src/linux/AppImpl_linux.cpp
+if(MSVC)
+    set(CMAKE_PREFIX_PATH
+            $ENV{SDL_PATH_MSVC}
+            ${CMAKE_PREFIX_PATH})
+endif()
 
-        src/linux/SurfaceImpl_linux.h
-        src/linux/SurfaceImpl_linux.cpp
-        )
+find_package(SDL2 REQUIRED)
+include_directories(${SDL2_INCLUDE_DIR})
 
 if(APPLE)
     set(SOURCE_FILES
@@ -69,4 +71,11 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
     add_definitions(-DBGFX_CONFIG_DEBUG=1)
 endif()
 
+if(WIN32)
+    set(LIBRARIES psapi)
+elseif(UNIX)
+    set(LIBRARIES GL pthread dl)
+endif()
+
 add_library(Framework STATIC ${SOURCE_FILES})
+target_link_libraries(Framework SDL2::SDL2 ${LIBRARIES})
