@@ -74,7 +74,7 @@ endif()
 if(WIN32)
     set(LIBRARIES psapi)
 elseif(UNIX)
-    set(LIBRARIES GL pthread dl)
+    set(LIBRARIES X11 GL pthread dl)
 endif()
 
 add_library(Framework STATIC ${SOURCE_FILES})
