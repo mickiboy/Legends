@@ -14,6 +14,23 @@
 - Set the following environment variables to their respective locations:
   - `QT_PATH_MSVC_32`
   - `QT_PATH_MSVC_64`
+  - `SDL_PATH_MSVC`
+
+### Preparing
+
+If not already cloned:
+
+```bash
+$ git clone --recursive https://github.com/mickiboy/Legends.git
+$ cd Legends
+```
+
+Otherwise (in top-level directory):
+
+```bash
+$ git submodule init
+$ git submodule update
+```
 
 ### Compiling
 
