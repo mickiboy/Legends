@@ -1,5 +1,5 @@
-#include <Legends/EventManager.h>
+#include "EventManager.h"
 
-namespace Legends {
+namespace core {
     std::map<std::type_index, std::set<void*>> EventManager::receivers;
 }

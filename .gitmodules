@@ -1,6 +1,6 @@
-[submodule "extlibs/bx"]
-	path = extlibs/bx
-	url = https://github.com/bkaradzic/bx.git
-[submodule "extlibs/bgfx"]
-	path = extlibs/bgfx
-	url = https://github.com/bkaradzic/bgfx.git
+[submodule "extlibs/glad"]
+	path = extlibs/glad
+	url = https://github.com/Dav1dde/glad.git
+[submodule "extlibs/glfw"]
+	path = extlibs/glfw
+	url = https://github.com/glfw/glfw.git

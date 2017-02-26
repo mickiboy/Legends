@@ -5,7 +5,7 @@
 #include <set>
 #include <typeindex>
 
-namespace Legends {
+namespace core {
     /**
      * Struct for resizing events. Needs width and height.
      */

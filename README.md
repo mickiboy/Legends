@@ -6,15 +6,7 @@
 
 - C++11 compiler
 - CMake 3.1 or newer
-- Qt 5.6 or newer
-- Doxygen 1.8 or newer _(optional)_
-
-#### Windows
-
-- Set the following environment variables to their respective locations:
-  - `QT_PATH_MSVC_32`
-  - `QT_PATH_MSVC_64`
-  - `SDL_PATH_MSVC`
+- Python
 
 ### Preparing
 
