@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.1)
 project(Legends VERSION 0.1.0)
 
+set(CMAKE_CXX_STANDARD 11)
+
 set(GLAD_PROFILE "core")
 add_subdirectory(${CMAKE_SOURCE_DIR}/extlibs/glad)
 
