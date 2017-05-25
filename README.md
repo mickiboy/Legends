@@ -1,5 +1,7 @@
 # Legends
 
+[![Build Status](https://travis-ci.org/mickiboy/Legends.svg?branch=master)](https://travis-ci.org/mickiboy/Legends)
+
 ## Build instructions
 
 ### Prerequisites
