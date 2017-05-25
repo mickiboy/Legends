@@ -1,5 +1,6 @@
-# IDE folder
+# IDE folders
 .idea/
+.vs/
 
 # Build folder
 cmake-build-debug

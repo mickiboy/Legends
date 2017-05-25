@@ -1,6 +1,7 @@
 #pragma once
 
-#include <GLFW/glfw3.h>
+#include <memory>
+#include <string>
 
 namespace core {
     /**
@@ -15,7 +16,7 @@ namespace core {
         /**
          * Creates an instance of App.
          */
-        App(int width, int height);
+        App(const std::string& name, int width, int height);
         ~App();
 
         void getSize(int* width, int* height);
@@ -37,8 +38,23 @@ namespace core {
         void swapBuffers();
 
     private:
+        friend class AppImpl_GLFW;
+
         static bool isAlreadyCreated;
 
-        GLFWwindow* window = nullptr;
+        class Impl {
+        public:
+            Impl(const std::string& name, int width, int height) {}
+            virtual ~Impl() {}
+
+            virtual void getSize(int* width, int* height) = 0;
+
+            virtual bool isRunning() = 0;
+
+            virtual void pollEvents() = 0;
+            virtual void swapBuffers() = 0;
+        };
+
+        std::shared_ptr<Impl> impl;
     };
 }

@@ -1,58 +1,42 @@
 #include <stdexcept>
 #include <glad/glad.h>
-#include "App.h"
+#include "EventManager.h"
+#include "impl/AppImpl_GLFW.h"
 
 namespace core {
     bool App::isAlreadyCreated = false;
 
-    App::App(int width, int height) {
+    App::App(const std::string& name, int width, int height) {
         if (!isAlreadyCreated) {
-            if (!glfwInit()) {
-                throw std::runtime_error("Error while initializing GLFW.");
-            }
-
-            glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-            glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
-            glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-
-            window = glfwCreateWindow(width,
-                                      height,
-                                      "Legends",
-                                      nullptr,
-                                      nullptr);
-            if (!window) {
-                glfwTerminate();
-                throw std::runtime_error("Error while creating a window.");
-            }
-
-            glfwMakeContextCurrent(window);
-
-            if (!gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress))) {
-                glfwTerminate();
-                throw std::runtime_error("Error while loading GL extensions.");
-            }
+            impl = std::make_shared<AppImpl_GLFW>(name, width, height);
 
             isAlreadyCreated = true;
         }
     }
 
     App::~App() {
-        glfwTerminate();
+        impl.reset();
     }
 
     void App::getSize(int* width, int* height) {
-        glfwGetFramebufferSize(window, width, height);
+        if (impl) {
+            impl->getSize(width, height);
+        }
     }
 
     bool App::isRunning() {
-        return !glfwWindowShouldClose(window);
+        return impl ? impl->isRunning() : false;
     }
 
     void App::pollEvents() {
-        glfwPollEvents();
+        if (impl) {
+            impl->pollEvents();
+        }
     }
 
     void App::swapBuffers() {
-        glfwSwapBuffers(window);
+        if (impl) {
+            impl->swapBuffers();
+        }
     }
 }

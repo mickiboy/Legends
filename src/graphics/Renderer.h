@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include "../core/EventManager.h"
 
 namespace core {
@@ -7,6 +8,9 @@ namespace core {
 }
 
 namespace graphics {
+    class Camera;
+    class Sprite;
+
     /**
      * A renderer is responsible for getting raw graphics data and dispatching
      * it to the GPU.
@@ -15,8 +19,6 @@ namespace graphics {
      */
     class Renderer : public core::Receiver<core::ResizeEvent> {
     public:
-        Renderer();
-
         /**
          * Creates an instance of a renderer for an application.
          *
@@ -28,9 +30,31 @@ namespace graphics {
 
         void receiveEvent(const core::ResizeEvent& event);
 
+        void setCamera(Camera* camera);
+
         /**
          * Initializes the back buffer.
          */
         void clear();
+
+        void draw(Sprite& sprite);
+
+    private:
+        friend class RendererImpl_GL;
+
+        class Impl {
+        public:
+            Impl(core::App& app) {}
+            virtual ~Impl() {}
+
+            virtual void receiveEvent(const core::ResizeEvent& event) = 0;
+
+            virtual void setCamera(Camera* camera) = 0;
+
+            virtual void clear() = 0;
+            virtual void draw(Sprite& sprite) = 0;
+        };
+
+        std::shared_ptr<Impl> impl;
     };
 }

@@ -1,26 +1,36 @@
-#include <glad/glad.h>
+#include "impl/RendererImpl_GL.h"
 #include "../core/App.h"
-#include "Renderer.h"
 
 namespace graphics {
     Renderer::Renderer(core::App& app) {
-        int width;
-        int height;
-
-        app.getSize(&width, &height);
-
-        glViewport(0, 0, width, height);
-        glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
+        impl = std::make_shared<RendererImpl_GL>(app);
     }
 
     Renderer::~Renderer() {
+        impl.reset();
     }
 
     void Renderer::receiveEvent(const core::ResizeEvent& event) {
-        glViewport(0, 0, event.width, event.height);
+        if (impl) {
+            impl->receiveEvent(event);
+        }
+    }
+
+    void Renderer::setCamera(Camera* camera) {
+        if (impl) {
+            impl->setCamera(camera);
+        }
     }
 
     void Renderer::clear() {
-        glClear(GL_COLOR_BUFFER_BIT);
+        if (impl) {
+            impl->clear();
+        }
+    }
+
+    void Renderer::draw(Sprite& sprite) {
+        if (impl) {
+            impl->draw(sprite);
+        }
     }
 }
