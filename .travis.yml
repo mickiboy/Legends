@@ -1,7 +1,7 @@
 language: cpp
 compiler:
   - gcc
-install: apt-get install xorg-dev
+install: sudo apt-get install xorg-dev
 before_script:
   - mkdir build
   - cd build
