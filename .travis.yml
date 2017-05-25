@@ -1,0 +1,12 @@
+dist: trusty
+sudo: required
+language: cpp
+compiler:
+  - gcc
+install: sudo apt-get install xorg-dev
+before_script:
+  - mkdir build
+  - cd build
+script:
+  - cmake ..
+  - make
