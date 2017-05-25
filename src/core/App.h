@@ -37,11 +37,6 @@ namespace core {
 
         void swapBuffers();
 
-    private:
-        friend class AppImpl_GLFW;
-
-        static bool isAlreadyCreated;
-
         class Impl {
         public:
             Impl(const std::string& name, int width, int height) {}
@@ -54,6 +49,9 @@ namespace core {
             virtual void pollEvents() = 0;
             virtual void swapBuffers() = 0;
         };
+
+    private:
+        static bool isAlreadyCreated;
 
         std::shared_ptr<Impl> impl;
     };

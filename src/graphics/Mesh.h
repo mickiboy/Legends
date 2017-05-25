@@ -12,9 +12,6 @@ namespace graphics {
              const std::vector<uint32_t>& indices);
         ~Mesh();
 
-    private:
-        friend class MeshImpl_GL;
-
         class Impl {
         public:
             Impl(const std::vector<float>& vertices,
@@ -22,9 +19,9 @@ namespace graphics {
             virtual ~Impl() {}
         };
 
-        std::shared_ptr<Impl> impl;
-
-    public:
         Impl* getImpl();
+
+    private:
+        std::shared_ptr<Impl> impl;
     };
 }

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <GLFW/glfw3.h>
-#include "../App.h"
+#include "core/App.h"
 
 namespace core {
     class AppImpl_GLFW : public App::Impl {

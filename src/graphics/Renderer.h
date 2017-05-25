@@ -39,9 +39,6 @@ namespace graphics {
 
         void draw(Sprite& sprite);
 
-    private:
-        friend class RendererImpl_GL;
-
         class Impl {
         public:
             Impl(core::App& app) {}
@@ -55,6 +52,7 @@ namespace graphics {
             virtual void draw(Sprite& sprite) = 0;
         };
 
+    private:
         std::shared_ptr<Impl> impl;
     };
 }

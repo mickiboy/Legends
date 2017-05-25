@@ -1,7 +1,7 @@
 #include <stdexcept>
 #include <glad/glad.h>
 #include "AppImpl_GLFW.h"
-#include "../EventManager.h"
+#include "core/EventManager.h"
 
 namespace core {
     AppImpl_GLFW::AppImpl_GLFW(const std::string& name, int width, int height)

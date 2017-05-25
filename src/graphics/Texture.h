@@ -13,9 +13,6 @@ namespace graphics {
         int getWidth() const;
         int getHeight() const;
 
-    private:
-        friend class TextureImpl_GL;
-
         class Impl {
         public:
             Impl(const std::string& path) {}
@@ -25,9 +22,9 @@ namespace graphics {
             virtual int getHeight() const = 0;
         };
 
-        std::shared_ptr<Impl> impl;
-
-    public:
         Impl* getImpl();
+
+    private:
+        std::shared_ptr<Impl> impl;
     };
 }

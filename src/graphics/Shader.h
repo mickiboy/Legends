@@ -17,9 +17,6 @@ namespace graphics {
         void setMatrix(const std::string& name, const glm::mat4& matrix);
         void setTexture(Texture& texture);
 
-    private:
-        friend class ShaderImpl_GL;
-
         class Impl {
         public:
             Impl(const std::string& vertexShaderPath,
@@ -30,9 +27,9 @@ namespace graphics {
             virtual void setTexture(Texture& texture) = 0;
         };
 
-        std::shared_ptr<Impl> impl;
-
-    public:
         Impl* getImpl();
+
+    private:
+        std::shared_ptr<Impl> impl;
     };
 }
