@@ -1,6 +1,5 @@
 #include <fstream>
 #include <iomanip>
-#include <sstream>
 #include "Log.h"
 
 #ifdef _WIN32
@@ -10,23 +9,51 @@
 #endif
 
 namespace core {
-    std::shared_ptr<Log::OutputImpl> Log::outputImpl;
-    std::chrono::high_resolution_clock::time_point Log::begin;
-    std::vector<std::string> Log::lines;
+    LogStream log;
 
-    void Log::init() {
+    LogStream::LogStream() {
+        start = std::chrono::high_resolution_clock::now();
+
 #ifdef _WIN32
         outputImpl = std::make_shared<LogOutputImpl_Win32>();
 #else
         outputImpl = std::make_shared<LogOutputImpl_ANSI>();
 #endif
 
-        begin = std::chrono::high_resolution_clock::now();
-
-        debug("Logging started", "core::Log");
+        *this << "Logging started" << std::endl;
     }
 
-    void Log::shutdown() {
+    LogStream::~LogStream() {
+        save();
+    }
+
+    void LogStream::makeLine() {
+        using namespace std::chrono;
+
+        auto now = high_resolution_clock::now();
+        auto time = now - start;
+        auto hours = duration_cast<std::chrono::hours>(time).count();
+        auto minutes = duration_cast<std::chrono::minutes>(time).count();
+        auto seconds = duration_cast<std::chrono::seconds>(time).count();
+        auto nanoseconds = time.count();
+        auto msg = str();
+
+        std::stringstream line;
+        line << std::setfill('0') << hours << ':'
+            << std::setw(2) << minutes << ':'
+            << std::setw(2) << seconds << '.'
+            << nanoseconds << ' '
+            << msg << '\n';
+
+        auto lineStr = line.str();
+
+        outputImpl->writeToConsole(currentLevel, lineStr);
+        lines.push_back(lineStr);
+
+        str("");
+    }
+
+    void LogStream::save() {
         std::ofstream file("log.txt", std::ios::out | std::ios::trunc);
 
         if (file.is_open()) {
@@ -36,42 +63,5 @@ namespace core {
 
             file.close();
         }
-    }
-
-    void Log::debug(const std::string& msg, const std::string& category) {
-        write(Debug, msg, category);
-    }
-
-    void Log::warning(const std::string& msg, const std::string& category) {
-        write(Warning, msg, category);
-    }
-
-    void Log::error(const std::string& msg, const std::string& category) {
-        write(Error, msg, category);
-    }
-
-    void Log::write(Type type, const std::string& msg, const std::string& category) {
-        using namespace std::chrono;
-
-        auto now = high_resolution_clock::now();
-        auto time = now - begin;
-        auto hours = duration_cast<std::chrono::hours>(time).count();
-        auto minutes = duration_cast<std::chrono::minutes>(time).count();
-        auto seconds = duration_cast<std::chrono::seconds>(time).count();
-        auto nanoseconds = time.count();
-
-        std::stringstream line;
-        line << std::setfill('0')
-            <<                 hours       << ':'
-            << std::setw(2) << minutes     << ':'
-            << std::setw(2) << seconds     << '.'
-            <<                 nanoseconds << ' '
-            << '[' << category << "] "
-            << msg << '\n';
-
-        auto lineStr = line.str();
-
-        outputImpl->writeToConsole(type, lineStr);
-        lines.push_back(lineStr);
     }
 }

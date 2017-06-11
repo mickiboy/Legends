@@ -8,12 +8,12 @@
 #include "core/Log.h"
 
 namespace core {
-    class LogOutputImpl_Win32 : public Log::OutputImpl {
+    class LogOutputImpl_Win32 : public LogOutputImpl {
     public:
         LogOutputImpl_Win32();
         virtual ~LogOutputImpl_Win32();
 
-        void writeToConsole(Log::Type type, const std::string& line) override;
+        void writeToConsole(LogLevel level, const std::string& line) override;
 
     private:
         HANDLE console = nullptr;

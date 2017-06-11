@@ -1,4 +1,3 @@
-#include <yaml-cpp/yaml.h>
 #include "core/App.h"
 #include "core/Log.h"
 #include "core/ResourceManager.h"
@@ -15,11 +14,9 @@ int main(int argc, char* argv[]) {
     int width = DEFAULT_WIDTH;
     int height = DEFAULT_HEIGHT;
 
-    core::Log::init();
-
-    core::Log::warning("Warning", "test");
-    core::Log::debug("Debug", "test");
-    core::Log::error("Error", "test");
+    core::log << core::Warning << "Warning" << std::endl;
+    core::log << core::Debug << "Debug" << std::endl;
+    core::log << core::Error << "Error" << std::endl;
 
     core::App app(PROJECT_NAME, width, height);
     graphics::Renderer renderer(app);
@@ -39,12 +36,10 @@ int main(int argc, char* argv[]) {
         app.swapBuffers();
     }
 
-    core::Log::debug("Closing game", "general");
+    core::log << "Closing game" << std::endl;
 
     core::SceneManager::flush();
     core::ResourceManager::flush();
-
-    core::Log::shutdown();
 
     return 0;
 }

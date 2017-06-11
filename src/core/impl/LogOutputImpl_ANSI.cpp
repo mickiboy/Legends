@@ -6,13 +6,13 @@
 #define ANSI_COLOR_YELLOW "\x1b[33m"
 
 namespace core {
-    void LogOutputImpl_ANSI::writeToConsole(Log::Type type, const std::string& line) {
-        switch (type) {
-        case Log::Warning:
+    void LogOutputImpl_ANSI::writeToConsole(LogLevel level, const std::string& line) {
+        switch (level) {
+        case Warning:
             std::cout << ANSI_COLOR_YELLOW;
             break;
 
-        case Log::Error:
+        case Error:
             std::cout << ANSI_COLOR_RED;
             break;
         }

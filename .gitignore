@@ -5,6 +5,5 @@
 # Build folder
 cmake-build-debug
 
-# Documentation folder
-framework/docs
-resources/
+# Log file
+log.txt

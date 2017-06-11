@@ -12,17 +12,17 @@ namespace core {
         console = nullptr;
     }
 
-    void LogOutputImpl_Win32::writeToConsole(Log::Type type, const std::string& line) {
-        switch (type) {
-        case Log::Debug:
+    void LogOutputImpl_Win32::writeToConsole(LogLevel level, const std::string& line) {
+        switch (level) {
+        case Debug:
             SetConsoleTextAttribute(console, FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED);
             break;
 
-        case Log::Warning:
+        case Warning:
             SetConsoleTextAttribute(console, FOREGROUND_GREEN | FOREGROUND_RED);
             break;
 
-        case Log::Error:
+        case Error:
             SetConsoleTextAttribute(console, FOREGROUND_RED);
             break;
         }
