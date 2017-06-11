@@ -1,3 +1,5 @@
+#ifdef _WIN32
+
 #include <iostream>
 #include "LogOutputImpl_Win32.h"
 
@@ -31,3 +33,5 @@ namespace core {
         SetConsoleTextAttribute(console, 0);
     }
 }
+
+#endif
