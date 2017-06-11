@@ -7,3 +7,6 @@
 [submodule "extlibs/glm"]
 	path = extlibs/glm
 	url = https://github.com/g-truc/glm.git
+[submodule "extlibs/yaml-cpp"]
+	path = extlibs/yaml-cpp
+	url = https://github.com/jbeder/yaml-cpp.git

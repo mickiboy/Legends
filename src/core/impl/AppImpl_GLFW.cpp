@@ -1,14 +1,18 @@
-#include <stdexcept>
+#include <sstream>
 #include <glad/glad.h>
 #include "AppImpl_GLFW.h"
 #include "core/EventManager.h"
+#include "core/Log.h"
 
 namespace core {
     AppImpl_GLFW::AppImpl_GLFW(const std::string& name, int width, int height)
         : App::Impl(name, width, height) {
         if (!glfwInit()) {
-            throw std::runtime_error("Error while initializing GLFW.");
+            Log::error("Error while initializing GLFW", "core::AppImpl_GLFW");
+            return;
         }
+
+        Log::debug("Initialized GLFW", "core::AppImpl_GLFW");
 
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -22,15 +26,23 @@ namespace core {
                                   nullptr);
         if (!window) {
             glfwTerminate();
-            throw std::runtime_error("Error while creating a window.");
+            Log::error("Error while creating a window", "core::AppImpl_GLFW");
+            return;
         }
+
+        std::stringstream ss;
+        ss << "Created a " << width << "x" << height << " window";
+        Log::debug(ss.str(), "core::AppImpl_GLFW");
 
         glfwMakeContextCurrent(window);
 
         if (!gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress))) {
             glfwTerminate();
-            throw std::runtime_error("Error while loading GL extensions.");
+            Log::error("Error while loading GL extensions", "core::AppImpl_GLFW");
+            return;
         }
+
+        Log::debug("Loaded GL extensions", "core::AppImpl_GLFW");
 
         glfwSetFramebufferSizeCallback(window, onFramebufferSizeChange);
     }

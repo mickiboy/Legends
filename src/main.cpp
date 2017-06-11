@@ -1,35 +1,50 @@
-#include <exception>
-#include <iostream>
+#include <yaml-cpp/yaml.h>
 #include "core/App.h"
+#include "core/Log.h"
 #include "core/ResourceManager.h"
+#include "core/SceneManager.h"
 #include "graphics/Camera.h"
 #include "graphics/Renderer.h"
 #include "graphics/Sprite.h"
 #include "config.h"
 
+const int DEFAULT_WIDTH = 1280;
+const int DEFAULT_HEIGHT = 720;
+
 int main(int argc, char* argv[]) {
-    try {
-        core::App app(PROJECT_NAME, 1280, 720);
-        graphics::Renderer renderer(app);
+    int width = DEFAULT_WIDTH;
+    int height = DEFAULT_HEIGHT;
 
-        graphics::Camera camera(1280, 720);
-        renderer.setCamera(&camera);
+    core::Log::init();
 
-        graphics::Sprite sprite("assets/textures/container.jpg");
+    core::Log::warning("Warning", "test");
+    core::Log::debug("Debug", "test");
+    core::Log::error("Error", "test");
 
-        while (app.isRunning()) {
-            app.pollEvents();
+    core::App app(PROJECT_NAME, width, height);
+    graphics::Renderer renderer(app);
 
-            renderer.clear();
-            renderer.draw(sprite);
-            app.swapBuffers();
-        }
+    core::SceneManager::loadScene("assets/scenes/dummy.yaml");
 
-        core::ResourceManager::flush();
+    graphics::Camera camera(width, height);
+    renderer.setCamera(&camera);
 
-        return 0;
-    } catch (std::exception& e) {
-        std::cerr << e.what() << std::endl;
-        return -1;
+    graphics::Sprite sprite("assets/textures/container.jpg");
+
+    while (app.isRunning()) {
+        app.pollEvents();
+
+        renderer.clear();
+        renderer.draw(sprite);
+        app.swapBuffers();
     }
+
+    core::Log::debug("Closing game", "general");
+
+    core::SceneManager::flush();
+    core::ResourceManager::flush();
+
+    core::Log::shutdown();
+
+    return 0;
 }

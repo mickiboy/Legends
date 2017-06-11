@@ -1,6 +1,9 @@
 #include "Camera.h"
 
 namespace graphics {
+    Camera::Camera() {
+    }
+
     Camera::Camera(int width, int height) {
         setViewport(width, height);
     }

@@ -9,7 +9,10 @@ namespace graphics {
 
     class Sprite {
     public:
+        Sprite();
         Sprite(const std::string& path);
+
+        void load(const std::string& path);
 
         Mesh* getMesh();
         Shader* getShader();

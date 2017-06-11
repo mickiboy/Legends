@@ -7,7 +7,14 @@
 #include "graphics/Texture.h"
 
 namespace graphics {
+    Sprite::Sprite() {
+    }
+
     Sprite::Sprite(const std::string& path) {
+        load(path);
+    }
+
+    void Sprite::load(const std::string& path) {
         shader = core::ResourceManager::load<graphics::Shader>("shader_default", "assets/shaders/GL/default.vert", "assets/shaders/GL/default.frag");
 
         std::stringstream textureKey;

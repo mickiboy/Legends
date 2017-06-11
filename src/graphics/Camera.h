@@ -6,6 +6,7 @@
 namespace graphics {
     class Camera {
     public:
+        Camera();
         Camera(int width, int height);
 
         const glm::mat4& getViewMatrix();
