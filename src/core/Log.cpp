@@ -10,15 +10,15 @@
 #endif
 
 namespace core {
-    std::unique_ptr<Log::OutputImpl> Log::outputImpl;
+    std::shared_ptr<Log::OutputImpl> Log::outputImpl;
     std::chrono::high_resolution_clock::time_point Log::begin;
     std::vector<std::string> Log::lines;
 
     void Log::init() {
 #ifdef _WIN32
-        outputImpl = std::make_unique<LogOutputImpl_Win32>();
+        outputImpl = std::make_shared<LogOutputImpl_Win32>();
 #else
-        outputImpl = std::make_unique<LogOutputImpl_ANSI>();
+        outputImpl = std::make_shared<LogOutputImpl_ANSI>();
 #endif
 
         begin = std::chrono::high_resolution_clock::now();

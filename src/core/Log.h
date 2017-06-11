@@ -34,7 +34,7 @@ namespace core {
     private:
         Log() {}
 
-        static std::unique_ptr<OutputImpl> outputImpl;
+        static std::shared_ptr<OutputImpl> outputImpl;
         static std::chrono::high_resolution_clock::time_point begin;
         static std::vector<std::string> lines;
 
