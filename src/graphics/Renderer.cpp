@@ -1,5 +1,5 @@
 #include "impl/RendererImpl_GL.h"
-#include "../core/App.h"
+#include "core/App.h"
 
 namespace graphics {
     Renderer::Renderer(core::App& app) {
@@ -28,7 +28,7 @@ namespace graphics {
         }
     }
 
-    void Renderer::draw(Sprite& sprite) {
+    void Renderer::draw(Sprite* sprite) {
         if (impl) {
             impl->draw(sprite);
         }

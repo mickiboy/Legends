@@ -31,6 +31,7 @@ set(SOURCE_FILES
     src/core/Log.cpp src/core/Log.h
     src/core/ResourceManager.cpp src/core/ResourceManager.h
     src/core/SceneManager.cpp src/core/SceneManager.h
+    src/core/TaskManager.cpp src/core/TaskManager.h
     src/core/World.cpp src/core/World.h
 
     src/core/impl/AppImpl_GLFW.cpp src/core/impl/AppImpl_GLFW.h
@@ -42,6 +43,7 @@ set(SOURCE_FILES
     src/graphics/Renderer.cpp src/graphics/Renderer.h
     src/graphics/Shader.cpp src/graphics/Shader.h
     src/graphics/Sprite.cpp src/graphics/Sprite.h
+    src/graphics/SpriteRendererTask.cpp src/graphics/SpriteRendererTask.h
     src/graphics/Texture.cpp src/graphics/Texture.h
         
     src/graphics/impl/MeshImpl_GL.cpp src/graphics/impl/MeshImpl_GL.h

@@ -21,7 +21,7 @@ namespace core {
             return reinterpret_cast<T*>(resources[key].get());
         }
 
-        static void flush();
+        static void dispose();
 
     private:
         static std::map<std::string, std::shared_ptr<Resource>> resources;

@@ -38,9 +38,9 @@ namespace graphics {
         glClear(GL_COLOR_BUFFER_BIT);
     }
 
-    void RendererImpl_GL::draw(Sprite& sprite) {
-        auto meshImpl = reinterpret_cast<MeshImpl_GL*>(sprite.getMesh()->getImpl());
-        auto shaderImpl = reinterpret_cast<ShaderImpl_GL*>(sprite.getShader()->getImpl());
+    void RendererImpl_GL::draw(Sprite* sprite) {
+        auto meshImpl = reinterpret_cast<MeshImpl_GL*>(sprite->getMesh()->getImpl());
+        auto shaderImpl = reinterpret_cast<ShaderImpl_GL*>(sprite->getShader()->getImpl());
 
         glUseProgram(shaderImpl->getProgramId());
 
@@ -52,7 +52,7 @@ namespace graphics {
         glUniformMatrix4fv(viewMatrix, 1, GL_FALSE, glm::value_ptr(camera->getViewMatrix()));
         glUniformMatrix4fv(projectionMatrix, 1, GL_FALSE, glm::value_ptr(camera->getProjectionMatrix()));
 
-        sprite.getShader()->setTexture(*sprite.getTexture());
+        sprite->getShader()->setTexture(*sprite->getTexture());
 
         glBindVertexArray(meshImpl->getVAO());
         glDrawElements(GL_TRIANGLES, meshImpl->getIndexSize(), GL_UNSIGNED_INT, nullptr);

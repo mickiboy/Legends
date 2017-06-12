@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Renderer.h"
+#include "graphics/Renderer.h"
 
 namespace graphics {
     class RendererImpl_GL : public Renderer::Impl {
@@ -13,7 +13,7 @@ namespace graphics {
         void setCamera(Camera* camera) override;
 
         void clear() override;
-        void draw(Sprite& sprite) override;
+        void draw(Sprite* sprite) override;
 
     private:
         Camera* camera = nullptr;

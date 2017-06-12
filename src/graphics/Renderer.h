@@ -1,7 +1,7 @@
 #pragma once
 
 #include <memory>
-#include "../core/EventManager.h"
+#include "core/EventManager.h"
 
 namespace core {
     class App;
@@ -37,7 +37,7 @@ namespace graphics {
          */
         void clear();
 
-        void draw(Sprite& sprite);
+        void draw(Sprite* sprite);
 
         class Impl {
         public:
@@ -46,10 +46,9 @@ namespace graphics {
 
             virtual void receiveEvent(const core::ResizeEvent& event) = 0;
 
-            virtual void setCamera(Camera* camera) = 0;
-
             virtual void clear() = 0;
-            virtual void draw(Sprite& sprite) = 0;
+            virtual void setCamera(Camera* camera) = 0;
+            virtual void draw(Sprite* sprite) = 0;
         };
 
     private:

@@ -3,7 +3,7 @@
 namespace core {
     std::map<std::string, std::shared_ptr<Resource>> ResourceManager::resources;
 
-    void ResourceManager::flush() {
+    void ResourceManager::dispose() {
         for (auto& resource : resources) {
             resource.second.reset();
         }

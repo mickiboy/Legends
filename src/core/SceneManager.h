@@ -9,17 +9,25 @@ namespace core {
     public:
         Scene(const std::string& configPath);
 
+        World& getWorld();
+
     private:
         World world;
     };
 
     class SceneManager {
     public:
-        static void flush();
+        ~SceneManager() {}
+
+        static void dispose();
+
+        static Scene* getCurrentScene();
 
         static void loadScene(const std::string& configPath);
 
     private:
+        SceneManager() {}
+
         static std::shared_ptr<Scene> currentScene;
     };
 }

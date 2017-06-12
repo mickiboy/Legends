@@ -1,12 +1,12 @@
 entities:
     -
-        id: camera_main
+        name: camera_main
         components:
             Camera:
                 width: 1280
                 height: 720
     -
-        id: sprite_container
+        name: sprite_container
         components:
             Sprite:
                 texture: assets/textures/container.jpg
